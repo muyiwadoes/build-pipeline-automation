@@ -1,0 +1,17 @@
+# -----------------------
+# Pipeline stages
+# -----------------------
+stages:
+  - lint
+  - test
+  - build
+  - publish
+
+# -----------------------
+# Registry configuration
+# -----------------------
+registry:
+  url: ""        # override with REGISTRY_URL env var
+  image: build-pipeline-automation
+  username: ""   # override with REGISTRY_USERNAME env var
+  password: ""   # override with REGISTRY_PASSWORD env var

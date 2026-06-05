@@ -1,0 +1,68 @@
+# -------------------------
+# Version control
+# -------------------------
+.git
+.gitattributes
+
+# -------------------------
+# Environment & secrets ONLY
+# -------------------------
+.env
+.env.*
+!.env.example
+
+# -------------------------
+# IDEs
+# -------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# -------------------------
+# Python environment
+# -------------------------
+venv/
+.venv/
+env/
+ENV/
+
+# -------------------------
+# Python cache & build artifacts
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# -------------------------
+# Testing artifacts (cache only, NOT tests/)
+# -------------------------
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# -------------------------
+# Linting & type checking caches
+# -------------------------
+.ruff_cache/
+.mypy_cache/
+
+# -------------------------
+# OS files
+# -------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Logs & temporary files
+# -------------------------
+*.log
+*.tmp
+*.bak
