@@ -90,11 +90,11 @@ def test_build_stage_uses_env_override(config, monkeypatch):
     """Build respects IMAGE_NAME and BUILD_TAG env vars."""
     monkeypatch.setenv("IMAGE_NAME", "custom-image")
     monkeypatch.setenv("BUILD_TAG", "v1.0.0")
-    
+
     with patch("subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(returncode=0, stderr="")
         BuildStage(config).run()
-        
+
         cmd = mock_run.call_args[0][0]
         assert "custom-image:v1.0.0" in cmd
 
@@ -135,7 +135,7 @@ def test_publish_stage_logs_in_with_credentials(config):
     with patch("subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(returncode=0, stderr="")
         PublishStage(config).run()
-        
+
         # Check that login was called with --password-stdin
         login_call = mock_run.call_args_list[0][0][0]
         assert "docker" in login_call
@@ -148,11 +148,11 @@ def test_publish_stage_skips_login_without_credentials(config):
     config = deepcopy(config)
     config["registry"]["username"] = ""
     config["registry"]["password"] = ""
-    
+
     with patch("subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(returncode=0, stderr="")
         PublishStage(config).run()
-        
+
         # Should have inspect + push, NOT login
         assert mock_run.call_count == 2
 
@@ -161,11 +161,11 @@ def test_publish_stage_uses_env_override(config, monkeypatch):
     """Publish respects REGISTRY_URL and IMAGE_NAME env vars."""
     monkeypatch.setenv("REGISTRY_URL", "docker.io")
     monkeypatch.setenv("IMAGE_NAME", "myapp")
-    
+
     with patch("subprocess.run") as mock_run:
         mock_run.return_value = MagicMock(returncode=0, stderr="")
         PublishStage(config).run()
-        
+
         # Last call should be push
         push_cmd = mock_run.call_args_list[-1][0][0]
         assert "docker.io/myapp:latest" in push_cmd

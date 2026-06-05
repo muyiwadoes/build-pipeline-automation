@@ -21,7 +21,7 @@ def test_pipeline_runs_all_stages(mock_config):
         pipeline = Pipeline()
         for stage in pipeline.stages:
             stage.run = MagicMock(return_value=True)
-        
+
         assert pipeline.run() is True
         for stage in pipeline.stages:
             stage.run.assert_called_once()
@@ -33,7 +33,7 @@ def test_pipeline_aborts_on_first_failure(mock_config):
         pipeline = Pipeline()
         pipeline.stages[0].run = MagicMock(return_value=False)
         pipeline.stages[1].run = MagicMock(return_value=True)
-        
+
         assert pipeline.run() is False
         pipeline.stages[0].run.assert_called_once()
         pipeline.stages[1].run.assert_not_called()
@@ -50,7 +50,7 @@ def test_pipeline_skips_unknown_stages(mock_config):
     """Pipeline should skip unrecognized stage names."""
     config = deepcopy(mock_config)
     config["stages"] = ["lint", "unknown_stage", "test"]
-    
+
     with patch("src.pipeline.load_config", return_value=config):
         pipeline = Pipeline()
         assert len(pipeline.stages) == 2
@@ -61,7 +61,7 @@ def test_pipeline_with_no_stages(mock_config):
     """Pipeline should succeed gracefully with no stages."""
     config = deepcopy(mock_config)
     config["stages"] = []
-    
+
     with patch("src.pipeline.load_config", return_value=config):
         pipeline = Pipeline()
         assert pipeline.run() is True

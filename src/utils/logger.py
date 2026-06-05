@@ -4,14 +4,14 @@ import sys
 
 def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
-    
+
     # Prevent duplicate handlers and duplicate logs
     if logger.handlers:
         return logger
-    
+
     logger.setLevel(logging.INFO)
     logger.propagate = False
-    
+
     handler = logging.StreamHandler(sys.stdout)
     handler.setLevel(logging.INFO)
     formatter = logging.Formatter(
@@ -20,5 +20,5 @@ def get_logger(name: str) -> logging.Logger:
     )
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    
+
     return logger
