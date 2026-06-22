@@ -10,9 +10,7 @@ def health():
 
 @app.get("/run")
 def run_pipeline():
-    return {
-        "message": "Pipeline trigger endpoint (replace with real logic if needed)"
-    }
+    return {"message": "Pipeline trigger endpoint (replace with real logic if needed)"}
 
 
 def main():

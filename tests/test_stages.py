@@ -25,6 +25,7 @@ def config():
 # LintStage (Ruff-based)
 # -------------------
 
+
 def test_lint_passes_when_both_checks_succeed(config):
     """Ruff lint and format checks both pass."""
     with patch("subprocess.run") as mock_run:
@@ -54,6 +55,7 @@ def test_lint_fails_when_format_fails(config):
 # TestStage
 # -------------------
 
+
 def test_test_stage_passes(config):
     """Pytest succeeds."""
     with patch("subprocess.run") as mock_run:
@@ -71,6 +73,7 @@ def test_test_stage_fails(config):
 # -------------------
 # BuildStage
 # -------------------
+
 
 def test_build_stage_passes(config):
     """Docker build succeeds."""
@@ -102,6 +105,7 @@ def test_build_stage_uses_env_override(config, monkeypatch):
 # -------------------
 # PublishStage
 # -------------------
+
 
 def test_publish_stage_passes(config):
     """Docker push succeeds."""

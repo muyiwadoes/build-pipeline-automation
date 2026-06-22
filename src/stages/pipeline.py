@@ -96,10 +96,7 @@ def main(config_path: str = "pipeline-config.yml"):
         run(f"docker build -t {full_image} .")
 
         print("\n=== SMOKE TEST ===")
-        run(
-            f"docker run --rm -e PYTHONPATH=. {full_image} "
-            "python -c \"print('OK')\""
-        )
+        run(f"docker run --rm -e PYTHONPATH=. {full_image} python -c \"print('OK')\"")
 
     # -----------------------
     # PUBLISH GATE (CI SAFE)
