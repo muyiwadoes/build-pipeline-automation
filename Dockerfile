@@ -1,4 +1,4 @@
-FROM python:3.12-slim-bookworm@sha256:<pinned-digest>
+FROM python:3.12-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
