@@ -146,7 +146,7 @@ jobs:
       - name: Download task definition
         run: |
           aws ecs describe-task-definition \
-            --task-definition ci-project-task \
+            --task-definition build-pipeline_task_definition \
             --query taskDefinition \
             --output json | \
             jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' \
@@ -158,7 +158,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: "ci-project-container"
+          container-name: "build-pipeline-container"
           image: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
 
@@ -166,8 +166,8 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ci-project-task-service-dwusgl2r
-          cluster: ci-project_cluster
+          service: build-pipeline-automation_service
+          cluster: build-pipeline_cluster
           wait-for-service-stability: true
           force-new-deployment: true
 
@@ -179,7 +179,7 @@ jobs:
         if: always()
         run: |
           aws ecs describe-services \
-            --cluster ci-project_cluster \
-            --services ci-project-task-service-dwusgl2r \
+            --cluster build-pipeline_cluster \
+            --services build-pipeline-automation_service \
             --query "services[0].{status:status, runningCount:runningCount, pendingCount:pendingCount, desiredCount:desiredCount}" \
             --output yaml
