@@ -11,7 +11,9 @@ stages:
 # Registry configuration
 # -----------------------
 registry:
-  url: ""        # override with REGISTRY_URL env var
+  # These can be overridden via environment variables:
+  # REGISTRY_URL, REGISTRY_USERNAME, REGISTRY_PASSWORD
+  url: ""                    
   image: build-pipeline-automation
-  username: ""   # override with REGISTRY_USERNAME env var
-  password: ""   # override with REGISTRY_PASSWORD env var
+  username: ""
+  password: ""
